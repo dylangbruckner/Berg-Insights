@@ -10,6 +10,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+#hi there
 @app.route("/")
 def index():
     return render_template("index.html")
