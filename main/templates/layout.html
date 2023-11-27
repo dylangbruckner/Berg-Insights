@@ -19,31 +19,25 @@
     </head>
     
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Logo Goes Here</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <nav class="bg-light border navbar navbar-expand-md navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"> Logo
+            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav me-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/option1">op1</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/option2">op2</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/option3">op3</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/option4">op4</a></li>
                     </ul>
-                  </li>
-                </ul>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Form</a>
-                </li>
-              </div>
+                    <ul class="navbar-nav ms-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/form">Form</a></li>
+                    </ul>
             </div>
-          </nav>
+        </div>
+    </nav>
         
           <main class="container-fluid py-5 text-center">
             {% block main %}{% endblock %}
