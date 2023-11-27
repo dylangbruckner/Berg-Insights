@@ -3,7 +3,7 @@ import requests
 
 # Scraper
 # URL = "https://realpython.github.io/fake-jobs/"
-page = requests.get(URL)
+# page = requests.get(URL)
 
 
 app = Flask(__name__)
@@ -16,7 +16,11 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-#hi there
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/form")
+def form():
+    return render_template("form.html")
