@@ -1,4 +1,10 @@
 from flask import Flask, flash, redirect, render_template, request, session
+import requests
+
+# Scraper
+# URL = "https://realpython.github.io/fake-jobs/"
+page = requests.get(URL)
+
 
 app = Flask(__name__)
 
