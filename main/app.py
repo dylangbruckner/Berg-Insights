@@ -1,3 +1,6 @@
+import os
+import sys
+
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
 
@@ -7,6 +10,7 @@ import requests
 
 
 app = Flask(__name__)
+
 
 @app.after_request
 def after_request(response):
