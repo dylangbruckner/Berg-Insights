@@ -1,0 +1,14 @@
+.rating label {
+    text-align: left;
+    position: relative;
+    
+} 
+
+label[for="form"] {
+    text-align: left;
+}
+
+.btn-check:checked + .btn {
+    background-color: #007bff;
+    color: #fff;
+}

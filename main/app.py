@@ -4,12 +4,13 @@ import sys
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
 
+app = Flask(__name__)
+
+os.environ['FLASK_DEBUG'] = '1'
+
 # Scraper
 # URL = "https://realpython.github.io/fake-jobs/"
 # page = requests.get(URL)
-
-
-app = Flask(__name__)
 
 
 @app.after_request
@@ -25,6 +26,34 @@ def after_request(response):
 def index():
     return render_template("index.html")
 
-@app.route("/form")
+@app.route("/form", methods=["GET", "POST"])
 def form():
-    return render_template("form.html")
+
+    if request.method == "POST":
+
+        errors = []
+
+        if not request.form.get("time-input"):
+            errors.append("Please provide the time when you were in line.")
+
+        if not request.form.get("time-base"):
+            errors.append("Please provide a time report.")
+
+        if not request.form.get("rating-base"):
+            errors.append("Please provide a meal rating.")
+        
+        if errors:
+            return render_template("form.html", errors=errors)
+        
+        current_time = request.form.get("time-input")
+        time_report = request.form.get("time-base")
+        meal_rating = request.form.get("rating-base")
+
+        
+
+        return redirect("/")
+
+    else:  
+        return render_template("form.html")
+
+

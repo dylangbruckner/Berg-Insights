@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+
+{% block main %}
+
+<form action="/form" method="post">
+
+    <h1>
+        <label for="form">How long did you wait?</label>
+    </h1>
+
+    <div class="time">
+        <input type="time" name="time-input" id="time-input">
+
+        <input type="radio" class="btn-check" name="time-base" id="time1" autocomplete="off">
+        <label class="btn" for="time1">No wait</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time2" autocomplete="off">
+        <label class="btn" for="time2">Less than 5 minutes</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time3" autocomplete="off">
+        <label class="btn" for="time3">5-10 minutes</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time4" autocomplete="off">
+        <label class="btn" for="time4">More than 10 minutes</label>
+    </div>    
+        
+    <br>
+
+    <h1>
+        <label for="form">Rate the meal!</label>
+    </h1>
+
+    <!-- Using Radio Buttons -->
+
+    <div class="rating">
+        <input type="radio" class="btn-check" name="rating-base" id="rating1" autocomplete="off">
+        <label class="btn" for="rating1">1</label>
+    
+        <input type="radio" class="btn-check" name="rating-base" id="rating2" autocomplete="off">
+        <label class="btn" for="rating2">2</label>
+    
+        <input type="radio" class="btn-check" name="rating-base" id="rating3" autocomplete="off">
+        <label class="btn" for="rating3">3</label>
+    
+        <input type="radio" class="btn-check" name="rating-base" id="rating4" autocomplete="off">
+        <label class="btn" for="rating4">4</label>
+
+        <input type="radio" class="btn-check" name="rating-base" id="rating5" autocomplete="off">
+        <label class="btn" for="rating5">5</label>
+    </div>
+   
+    <br>
+
+    <h1>
+        <label for="form">Any comments?</label>
+    </h1>
+
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Comments</label>
+    </div>
+
+    <br>
+
+    <input type="submit" value="Submit">
+
+    {% for error in errors %}
+
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+
+    {% endfor %}
+
+</form>
+
+{% endblock %}
