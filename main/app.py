@@ -4,6 +4,8 @@ import sys
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
 import datetime
+from datetime import datetime as dtime, time, timedelta
+import pytz
 from bs4 import BeautifulSoup
 
 from cs50 import SQL
@@ -15,8 +17,10 @@ os.environ['FLASK_DEBUG'] = '1'
 db = SQL("sqlite:///huds.db")
 
 today = datetime.date.today()
-time = datetime.time
+current_time = time(dtime.now().time().hour, dtime.now().time().minute)
 fdate = f"{today.month}-{today.day}-{today.year}";
+
+print(current_time)
 
 # Scraper
 BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
@@ -49,7 +53,6 @@ if start_tag and end_tag:
     entrees = soup_between.find_all("a").get_text()
 
 
-
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -61,6 +64,9 @@ def after_request(response):
 
 @app.route("/")
 def index():
+
+    current_wait_time = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT 1;", current_time=time)
+
     return render_template("index.html")
 
 @app.route("/form", methods=["GET", "POST"])
@@ -96,4 +102,6 @@ def form():
 
     else:  
         return render_template("form.html")
+
+
 
