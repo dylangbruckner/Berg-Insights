@@ -4,9 +4,14 @@ import sys
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
 
+from cs50 import SQL
+
 app = Flask(__name__)
 
 os.environ['FLASK_DEBUG'] = '1'
+
+db = SQL("sqlite:///huds.db")
+
 
 # Scraper
 # URL = "https://realpython.github.io/fake-jobs/"
@@ -45,11 +50,15 @@ def form():
         if errors:
             return render_template("form.html", errors=errors)
         
-        current_time = request.form.get("time-input")
+        specified_time = request.form.get("time-input")
         time_report = request.form.get("time-base")
         meal_rating = request.form.get("rating-base")
 
-        
+        db.execute(
+            "INSERT INTO wait_times (timestamp, wait_time) VALUES (:specified_time, :time_report) ;",
+            specified_time = specified_time,
+            time_report = time_report,
+        )
 
         return redirect("/")
 
