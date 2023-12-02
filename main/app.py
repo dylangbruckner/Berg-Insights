@@ -81,20 +81,46 @@ def breakentree(samplehtml):
     else:
         return(None)
 
-# Scraper
-BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
-LUNCH = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=1"
-DINNER = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=2"
+# returns the entrees for a meal number
+def mealnumber(mealnum):
+    # determines the current meal date and meal(B, L, D)
+    if current_time > time(19, 30, 0):
+        cmealdate = today + timedelta(1)
+        cmealnum = 0
+    else:
+        cmealdate = today
+        if current_time < time(10, 30, 0):
+            cmealnum = 0
+        elif current_time < time(14, 0, 0):
+            cmealnum = 1
+        elif current_time < time(19, 30, 0):
+            cmealnum = 2
 
-# gets html
-breakfast = requests.get(BREAKFAST)
-lunch = requests.get(LUNCH)
-dinner = requests.get(DINNER)
 
-# runs html through parser
-brehtml = BeautifulSoup(breakfast.content, "html.parser")
-lunhtml = BeautifulSoup(lunch.content, "html.parser")
-dinhtml = BeautifulSoup(dinner.content, "html.parser")
+    # finds the meal date of mealnum and calculates the meal (B, L, D) using math
+    mealdate = cmealdate + timedelta((mealnum-mealnum%3)/3)
+    meal = mealnum%3 + cmealnum
+    if (cmealnum + mealnum%3 < 0):
+        mealdate = mealdate - timedelta(1)
+        if meal == -1:
+            meal = 2
+        else:
+            meal = 1
+    elif (cmealnum + mealnum%3 > 2):
+        mealdate = mealdate + timedelta(1)
+        if meal == 3:
+            meal = 0
+        else:
+            meal = 1
+    
+    # formats the date, and gets the url of that date's html
+    fdate = f"{mealdate.month}-{mealdate.day}-{mealdate.year}"
+    MYHTML = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal={meal}"
+
+    if meal == 0:
+        return breakentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
+    else:
+        return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
 
 # ----------BEGIN ROUTES--------------------------------------------------------------------------------------------------------------------
