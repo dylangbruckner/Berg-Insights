@@ -5,7 +5,6 @@ from flask import Flask, flash, redirect, render_template, request, session
 import requests
 import datetime
 from datetime import datetime as dtime, time, timedelta
-import pytz
 from bs4 import BeautifulSoup
 
 from cs50 import SQL
