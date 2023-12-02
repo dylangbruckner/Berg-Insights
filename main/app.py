@@ -117,9 +117,9 @@ def mealnumber(mealnum):
     MYHTML = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal={meal}"
 
     if meal == 0:
-        return breakentree(requests.get(MYHTML))
+        return breakentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
     else:
-        return lundinentree(requests.get(MYHTML))
+        return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
 
 # Scraper
