@@ -23,15 +23,30 @@ BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={
 LUNCH = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=1"
 DINNER = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=2"
 
+# gets html
 breakfast = requests.get(BREAKFAST)
 lunch = requests.get(LUNCH)
 dinner = requests.get(DINNER)
 
+# runs html through parser
 brehtml = BeautifulSoup(breakfast.content, "html.parser")
 lunhtml = BeautifulSoup(lunch.content, "html.parser")
 dinhtml = BeautifulSoup(dinner.content, "html.parser")
 
+# finds specific section of the code
+start_tag = dinhtml.find("tr", text_="Entrees")
+end_tag = dinhtml.find("tr", text_="Veg,Vegan")
 
+# this should (theoretically) add all of the entrees to a list called entrees
+if start_tag and end_tag:
+    content_between = ''
+    current_tag = start_tag.find_next()
+    while current_tag and current_tag != end_tag:
+        content_between += str(current_tag)
+        current_tag = current_tag.find_next()
+
+    soup_between = BeautifulSoup(content_between, 'html.parser')
+    entrees = soup_between.find_all("a").get_text()
 
 
 
