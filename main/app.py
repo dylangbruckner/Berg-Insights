@@ -5,7 +5,6 @@ from flask import Flask, flash, redirect, render_template, request, session
 import requests
 import datetime
 from datetime import datetime as dtime, time, timedelta
-import pytz
 from bs4 import BeautifulSoup
 
 from cs50 import SQL
@@ -19,7 +18,6 @@ db = SQL("sqlite:///huds.db")
 # Get current date and time
 today = datetime.date.today()
 current_time = time(dtime.now().time().hour, dtime.now().time().minute)
-fdate = f"{today.month}-{today.day}-{today.year}"
 
 
 # takes the html of any lunch/dinner page and returns the entrees
