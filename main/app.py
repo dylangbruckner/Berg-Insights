@@ -4,6 +4,8 @@ import sys
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
 import datetime
+from datetime import datetime as dtime, time, timedelta
+import pytz
 from bs4 import BeautifulSoup
 
 from cs50 import SQL
@@ -15,7 +17,9 @@ os.environ['FLASK_DEBUG'] = '1'
 db = SQL("sqlite:///huds.db")
 
 today = datetime.date.today()
-time = datetime.time
+current_time = time(dtime.now().time().hour, dtime.now().time().minute)
+
+print(current_time)
 
 # takes the html of any lunch/dinner page and returns the entrees
 def lundinentree(samplehtml):
@@ -93,7 +97,7 @@ def mealnumber(mealnum):
 
 
     # finds the meal date of mealnum and calculates the meal (B, L, D) using math
-    mealdate = today + timedelta((mealnum-mealnum%3)/3)
+    mealdate = cmealdate + timedelta((mealnum-mealnum%3)/3)
     meal = mealnum%3 + cmealnum
     if (cmealnum + mealnum%3 < 0):
         mealdate = mealdate - timedelta(1)
@@ -135,7 +139,6 @@ dinhtml = BeautifulSoup(dinner.content, "html.parser")
 
 
 
-
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -147,6 +150,9 @@ def after_request(response):
 
 @app.route("/")
 def index():
+
+    current_wait_time = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT 1;", current_time=time)
+
     return render_template("index.html")
 
 @app.route("/form", methods=["GET", "POST"])
@@ -182,4 +188,6 @@ def form():
 
     else:  
         return render_template("form.html")
+
+
 
