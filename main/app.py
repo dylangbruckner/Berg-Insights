@@ -16,7 +16,6 @@ db = SQL("sqlite:///huds.db")
 
 today = datetime.date.today()
 time = datetime.time
-fdate = f"{today.month}-{today.day}-{today.year}";
 
 # takes the html of any lunch/dinner page and returns the entrees
 def lundinentree(samplehtml):
@@ -76,6 +75,48 @@ def breakentree(samplehtml):
         return entrees
     else:
         return(None)
+
+# returns the entrees for a meal number
+def mealnumber(mealnum):
+    # determines the current meal date and meal(B, L, D)
+    if current_time > time(19, 30, 0):
+        cmealdate = today + timedelta(1)
+        cmealnum = 0
+    else:
+        cmealdate = today
+        if current_time < time(10, 30, 0):
+            cmealnum = 0
+        elif current_time < time(14, 0, 0):
+            cmealnum = 1
+        elif current_time < time(19, 30, 0):
+            cmealnum = 2
+
+
+    # finds the meal date of mealnum and calculates the meal (B, L, D) using math
+    mealdate = today + timedelta((mealnum-mealnum%3)/3)
+    meal = mealnum%3 + cmealnum
+    if (cmealnum + mealnum%3 < 0):
+        mealdate = mealdate - timedelta(1)
+        if meal == -1:
+            meal = 2
+        else:
+            meal = 1
+    elif (cmealnum + mealnum%3 > 2):
+        mealdate = mealdate + timedelta(1)
+        if meal == 3:
+            meal = 0
+        else:
+            meal = 1
+    
+    # formats the date, and gets the url of that date's html
+    fdate = f"{mealdate.month}-{mealdate.day}-{mealdate.year}"
+    MYHTML = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal={meal}"
+
+    if meal == 0:
+        return breakentree(requests.get(MYHTML))
+    else:
+        return lundinentree(requests.get(MYHTML))
+
 
 # Scraper
 BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
