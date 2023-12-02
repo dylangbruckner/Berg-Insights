@@ -3,6 +3,8 @@ import sys
 
 from flask import Flask, flash, redirect, render_template, request, session
 import requests
+import datetime
+from bs4 import BeautifulSoup
 
 from cs50 import SQL
 
@@ -12,10 +14,25 @@ os.environ['FLASK_DEBUG'] = '1'
 
 db = SQL("sqlite:///huds.db")
 
+today = datetime.date.today()
+time = datetime.time
+fdate = f"{today.month}-{today.day}-{today.year}";
 
 # Scraper
-# URL = "https://realpython.github.io/fake-jobs/"
-# page = requests.get(URL)
+BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
+LUNCH = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=1"
+DINNER = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=2"
+
+breakfast = requests.get(BREAKFAST)
+lunch = requests.get(LUNCH)
+dinner = requests.get(DINNER)
+
+brehtml = BeautifulSoup(breakfast.content, "html.parser")
+lunhtml = BeautifulSoup(lunch.content, "html.parser")
+dinhtml = BeautifulSoup(dinner.content, "html.parser")
+
+
+
 
 
 @app.after_request
