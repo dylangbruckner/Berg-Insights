@@ -18,6 +18,7 @@ today = datetime.date.today()
 time = datetime.time
 fdate = f"{today.month}-{today.day}-{today.year}";
 
+# takes the html of any lunch/dinner page and returns the entrees
 def lundinentree(samplehtml):
     # finds specific section of the code
     start_tag = samplehtml.find(lambda tag: tag.name == 'tr' and 'Entrees' in tag.get_text())
@@ -46,6 +47,35 @@ def lundinentree(samplehtml):
         return entrees
     else:
         return("no entrees found")
+# takes the breakfast page of any day and returns the entrees, if applicable
+def breakentree(samplehtml):
+    # finds specific section of the code
+    start_tag = samplehtml.find(lambda tag: tag.name == 'tr' and 'Breakfast Meats' in tag.get_text())
+    end_tag = samplehtml.find(lambda tag: tag.name == 'tr' and 'Breakfast Bakery' in tag.get_text())
+
+    # this should (theoretically) add all of the entrees to a list called entrees
+    if start_tag and end_tag:
+        content_set = set()
+        current_tag = start_tag.find_next()
+    
+        while current_tag and current_tag != end_tag:
+            content_set.add(str(current_tag))
+            current_tag = current_tag.find_next()
+
+        content_between = ''.join(content_set)
+
+        soup_between = BeautifulSoup(content_between, 'html.parser')
+        entrees_tags = soup_between.find_all("a")
+
+        # Extract text from each <a> tag and store in the entrees list
+        unique_entrees = set(tag.get_text(strip=True) for tag in entrees_tags)
+    
+        # Convert the set to a list if needed
+        entrees = list(unique_entrees)
+
+        return entrees
+    else:
+        return(None)
 
 # Scraper
 BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
