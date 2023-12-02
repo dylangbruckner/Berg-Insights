@@ -122,22 +122,6 @@ def mealnumber(mealnum):
         return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
 
-# Scraper
-BREAKFAST = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=0"
-LUNCH = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=1"
-DINNER = f"https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?date={fdate}&type=30&meal=2"
-
-# gets html
-breakfast = requests.get(BREAKFAST)
-lunch = requests.get(LUNCH)
-dinner = requests.get(DINNER)
-
-# runs html through parser
-brehtml = BeautifulSoup(breakfast.content, "html.parser")
-lunhtml = BeautifulSoup(lunch.content, "html.parser")
-dinhtml = BeautifulSoup(dinner.content, "html.parser")
-
-
 
 @app.after_request
 def after_request(response):
