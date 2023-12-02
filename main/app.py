@@ -16,11 +16,11 @@ os.environ['FLASK_DEBUG'] = '1'
 
 db = SQL("sqlite:///huds.db")
 
+# Get current date and time
 today = datetime.date.today()
 current_time = time(dtime.now().time().hour, dtime.now().time().minute)
-fdate = f"{today.month}-{today.day}-{today.year}";
+fdate = f"{today.month}-{today.day}-{today.year}"
 
-print(current_time)
 
 # takes the html of any lunch/dinner page and returns the entrees
 def lundinentree(samplehtml):
@@ -51,6 +51,8 @@ def lundinentree(samplehtml):
         return entrees
     else:
         return("no entrees found")
+    
+
 # takes the breakfast page of any day and returns the entrees, if applicable
 def breakentree(samplehtml):
     # finds specific section of the code
@@ -97,6 +99,8 @@ lunhtml = BeautifulSoup(lunch.content, "html.parser")
 dinhtml = BeautifulSoup(dinner.content, "html.parser")
 
 
+# ----------BEGIN ROUTES--------------------------------------------------------------------------------------------------------------------
+
 
 @app.after_request
 def after_request(response):
@@ -110,9 +114,17 @@ def after_request(response):
 @app.route("/")
 def index():
 
-    current_wait_time = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT 1;", current_time=time)
+    current_wait_times = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT 3;", current_time=current_time)
 
-    return render_template("index.html")
+    wait_time_calc = 0
+
+    for row in current_wait_times:
+        wait_time_calc += int(row['wait_time'])
+
+    average_wait_times = wait_time_calc / 3 
+
+    return render_template("index.html", average_wait_times=average_wait_times)
+
 
 @app.route("/form", methods=["GET", "POST"])
 def form():
