@@ -13,3 +13,23 @@ label[for="form"] {
     color: #fff;
 }
 
+#hihi{
+    margin-top: 8px;
+    margin-left: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#form-button{
+    margin-left: 15px;
+    background-color: #f8f9fa; 
+    padding-right: 8px;
+    padding-left: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(0,0,0,.1);
+    font-weight: 600
+}
