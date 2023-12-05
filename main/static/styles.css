@@ -49,6 +49,7 @@ label[for="form"] {
 
 .navbar{
     background-color: #A51C30 !important;
+    border-bottom: 1px solid #ebebeb59!important;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -59,6 +60,30 @@ label[for="form"] {
     border-color: #ebebeb59;
 }
 
+.table-primary{
+    background-color: #A51C30EE;
+    color: white;
+    border: 2px solid rgba(43, 43, 43, 0.762);
+}
+.table-row-head{
+    border: 1px solid rgba(43, 43, 43, 0.762);
+    font-weight: 475;
+}
+.table-row{
+    border: 1px solid rgba(43, 43, 43, 0.762);
+}
+.table-collumn{
+    border: 1px solid rgba(43, 43, 43, 0.762)  !important;
+    font-weight: 625;
+    font-size: 19px;
+    border-bottom: 2px solid rgba(43, 43, 43, 0.762) !important;
+}
+
+html {background-color: #F2F2F2}
+body {background-color: #F2F2F2}
+
+
 [data-bs-theme="crimson"] {
     background-color: #A51C30
 }
+

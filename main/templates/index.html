@@ -15,21 +15,29 @@
       <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
+      {% for eday in entreesdict %}
+      <div class="carousel-item">
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">Entree</th>
+              <th class="table-collumn" scope="col">Rating</th>
+              <th class="table-collumn" scope="col">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entree in entreesdict[eday] %}
+            <tr>
+              <th class="table-row-head" scope="row">{{ entree }}</th>
+              <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}</td>
+              <td class="table-row">{{ commentssdict[eday][loop.index0] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
       <div class="carousel-item active">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png" class="d-block w-100" alt="pic couldn't be loaded">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
         <img src="..." class="d-block w-100" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
