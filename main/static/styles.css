@@ -22,14 +22,43 @@ label[for="form"] {
 
 #form-button{
     margin-left: 15px;
-    background-color: #f8f9fa; 
-    padding-right: 8px;
+    background-color: #A51C30; 
+    padding-right: 10px;
     padding-left: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 5px;
-    border: 1.5px solid rgba(0,0,0,.1);
-    font-weight: 600
+    border: 1.5px solid #ebebeb59;
+    font-weight: 600;
+    color: white !important;
+}
+
+#logo{
+    color: white;
+    font-weight: 700;
+}
+#options{
+    padding-left: 18px;
+    padding-right: 8px;
+    color: white;
+    font-weight: 550;
+}
+
+
+.navbar{
+    background-color: #A51C30 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: #ebebeb59;
+}
+
+[data-bs-theme="crimson"] {
+    background-color: #A51C30
 }
