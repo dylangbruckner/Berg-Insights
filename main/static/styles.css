@@ -61,7 +61,7 @@ label[for="form"] {
 }
 
 .table-primary{
-    background-color: #A51C30EE;
+    background-color: #A51C30F7;
     color: white;
     border: 2px solid rgba(43, 43, 43, 0.762);
 }
@@ -82,8 +82,4 @@ label[for="form"] {
 html {background-color: #F2F2F2}
 body {background-color: #F2F2F2}
 
-
-[data-bs-theme="crimson"] {
-    background-color: #A51C30
-}
 
