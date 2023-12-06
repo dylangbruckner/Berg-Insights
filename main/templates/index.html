@@ -3,20 +3,18 @@
 {% block main %}
 
 <h1>
-  Today
+  Yessir Buddo
 </h1>
 <!-- carousel -->
 
 <div class="bd-example">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-    </ol>
     <div class="carousel-inner">
       {% for eday in entreesdict %}
       <div class="carousel-item">
+        {% if entreesdict[eday] is none %}
+        <p>This meal got no entrees home dog!</p>
+        {% else %}
         <table class="table table-primary">
           <thead>
             <tr>
@@ -29,16 +27,20 @@
             {% for entree in entreesdict[eday] %}
             <tr>
               <th class="table-row-head" scope="row">{{ entree }}</th>
-              <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}</td>
-              <td class="table-row">{{ commentssdict[eday][loop.index0] }}</td>
+              <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}/5</td>
+              <td class="table-row">{{ commentsdict[eday][loop.index0] }}</td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
+        {% endif %}
       </div>
       {% endfor %}
+      
       <div class="carousel-item active">
-        <img src="..." class="d-block w-100" alt="...">
+        <p>
+          testing slide 123123
+        </p>
         <div class="carousel-caption d-none d-md-block">
           <h5>Third slide label</h5>
           <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

@@ -48,7 +48,7 @@ def lundinentree(samplehtml):
 
         return entrees
     else:
-        return("no entrees found")
+        return None
     
 
 # takes the breakfast page of any day and returns the entrees, if applicable
@@ -79,7 +79,7 @@ def breakentree(samplehtml):
 
         return entrees
     else:
-        return(None)
+        return None
 
 # returns the entrees for a meal number
 def mealnumber(mealnum):
@@ -146,27 +146,25 @@ def index():
         wait_time_calc += int(row['wait_time'])
 
     average_wait_times = wait_time_calc / 3 
-    day2 = []
-    day1 = ["chicken", "tacos", "beets"]
-    day0 = ["chicken", "bananas"]
-    day_1 = ["chicken", "duck", "alligator", "bannanas"]
-    entreesdict = {-1: day_1, 0: day0, 1: day1, 2: day2}
+    
+    nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    entreesdict = dict.fromkeys(nummeals) 
+    ratingsdict = dict.fromkeys(nummeals) 
+    commentsdict = dict.fromkeys(nummeals) 
+    
+    for keys in entreesdict:
+        entreesdict[keys] = mealnumber(keys)
+
     # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
     # also make sure that these are in order from negative to positive in the dictionary, like i did
     # And then the dictionary of (rounded) ratings here, like so
-    rday2 = []
-    rday1 = [1, 7.2, 4.1]
-    rday0 = [3, 10]
-    rday_1 = [1, 10, 10, 10]
-    ratingsdict = {-1: rday_1, 0: rday0, 1: rday1, 2: rday2}
+    for keys in ratingsdict:
+        ratingsdict[keys] = [1, 2, 3, 4, 5, 3, 2, 4]
     # And then a dictionary of one comment from each here, make sure the order is right for all of these
-    cday2 = []
-    cday1 = ["eww", "yumyum", "a"]
-    cday0 = ["eww", "b"]
-    cday_1 = ["sedflwg", "d", "a", "b"]
-    commentssdict = {-1: cday_1, 0: cday0, 1: cday1, 2: cday2}
+    for keys in commentsdict:
+        commentsdict[keys] = ["a", "a", "a", "A", "ewww", "a", "testing123"]
 
-    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentssdict = commentssdict)
+    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict)
 
 
 @app.route("/form", methods=["GET", "POST"])
