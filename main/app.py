@@ -151,6 +151,12 @@ def index():
     for row in current_wait_times:
         wait_time_calc += int(row['wait_time'])
 
+    average_wait_time = round(wait_time_calc / len(current_wait_times))
+
+    wait_time_txt = ["No wait", "Less than 5 minutes", "5-10 minutes", "More than 10 minutes"]
+
+    return render_template("index.html", wait_time=wait_time_txt[average_wait_time])
+
     average_wait_times = wait_time_calc / 3 
     
     nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
@@ -208,17 +214,35 @@ def form():
         specified_time = request.form.get("time-input")
         time_report = request.form.get("time-base")
         meal_rating = request.form.get("rating-base")
+        meal_comment = request.form.get("meal-comment")
 
-        db.execute(
-            "INSERT INTO wait_times (timestamp, wait_time) VALUES (:specified_time, :time_report) ;",
-            specified_time = specified_time,
-            time_report = time_report,
-        )
+        current_entrees = mealnumber(0)
+
+        for entree in current_entrees:
+            
+            # Query database for username
+            rows = db.execute("SELECT * FROM entrees WHERE name = (:entree)", entree=entree)
+
+            # Ensure username does not exist
+            if len(rows) != 0:
+                db.execute("INSERT INTO entrees (name) VALUES (:entree);", entree=entree)
+
+                entree_id = db.execute("SELECT id FROM entrees WHERE name = (:entree);", entree=entree )
+
+                db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
+                           entree_id=entree_id[0]['id'], rating=meal_rating, comment=meal_comment)
+
+            else:
+                db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
+                           entree_id=rows[0]['id'], rating=meal_rating, comment=meal_comment)
 
         return redirect("/")
 
     else:  
-        return render_template("form.html")
+
+        current_entrees = mealnumber(0)
+
+        return render_template("form.html", current_entrees=current_entrees)
 
 
 
