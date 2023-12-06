@@ -6,12 +6,17 @@
   Yessir Buddo
 </h1>
 <!-- carousel -->
-
+<!-- jinja is used to fill tables with day's food, create carousel slides for all of the days we want -->
+<!-- and to display the current/upcoming meal as active! -->
 <div class="bd-example">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       {% for eday in entreesdict %}
+      {% if eday == 0 %}
+      <div class="carousel-item active">
+      {% else %}
       <div class="carousel-item">
+      {% endif %}
         {% if entreesdict[eday] is none %}
         <p>This meal got no entrees home dog!</p>
         {% else %}
@@ -37,7 +42,7 @@
       </div>
       {% endfor %}
       
-      <div class="carousel-item active">
+      <div class="carousel-item">
         <p>
           testing slide 123123
         </p>
