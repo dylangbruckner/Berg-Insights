@@ -79,6 +79,15 @@ label[for="form"] {
     border-bottom: 2px solid rgba(43, 43, 43, 0.762) !important;
 }
 
+.berg{
+    color:rgb(255, 255, 255);
+    font-variant: small-caps;
+}
+.insights{
+    color:gold;
+    font-variant: small-caps
+}
+
 html {background-color: #F2F2F2}
 body {background-color: #F2F2F2}
 
