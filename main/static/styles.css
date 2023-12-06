@@ -13,3 +13,82 @@ label[for="form"] {
     color: #fff;
 }
 
+#hihi{
+    margin-top: 8px;
+    margin-left: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#form-button{
+    margin-left: 15px;
+    background-color: #A51C30; 
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1.5px solid #ebebeb59;
+    font-weight: 600;
+    color: white !important;
+}
+
+#logo{
+    color: white;
+    font-weight: 700;
+}
+#options{
+    padding-left: 18px;
+    padding-right: 8px;
+    color: white;
+    font-weight: 550;
+}
+
+
+.navbar{
+    background-color: #A51C30 !important;
+    border-bottom: 1px solid #ebebeb59!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: #ebebeb59;
+}
+
+.table-primary{
+    background-color: #A51C30F7;
+    color: white;
+    border: 2px solid rgba(43, 43, 43, 0.762);
+}
+.table-row-head{
+    border: 1px solid rgba(43, 43, 43, 0.762);
+    font-weight: 475;
+}
+.table-row{
+    border: 1px solid rgba(43, 43, 43, 0.762);
+}
+.table-collumn{
+    border: 1px solid rgba(43, 43, 43, 0.762)  !important;
+    font-weight: 625;
+    font-size: 19px;
+    border-bottom: 2px solid rgba(43, 43, 43, 0.762) !important;
+}
+
+.berg{
+    color:rgb(255, 255, 255);
+    font-variant: small-caps;
+}
+.insights{
+    color:gold;
+    font-variant: small-caps
+}
+
+html {background-color: #F2F2F2}
+body {background-color: #F2F2F2}
+
+

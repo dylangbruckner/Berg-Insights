@@ -48,7 +48,7 @@ def lundinentree(samplehtml):
 
         return entrees
     else:
-        return("no entrees found")
+        return None
     
 
 # takes the breakfast page of any day and returns the entrees, if applicable
@@ -79,10 +79,10 @@ def breakentree(samplehtml):
 
         return entrees
     else:
-        return(None)
+        return None
 
-# returns the entrees for a meal number
-def mealnumber(mealnum):
+# determines the date and meal of any meal num
+def date_a_meal(mealnum):
     # determines the current meal date and meal(B, L, D)
     if current_time > time(19, 30, 0):
         cmealdate = today + timedelta(1)
@@ -95,7 +95,6 @@ def mealnumber(mealnum):
             cmealnum = 1
         elif current_time < time(19, 30, 0):
             cmealnum = 2
-
 
     # finds the meal date of mealnum and calculates the meal (B, L, D) using math
     mealdate = cmealdate + timedelta((mealnum-mealnum%3)/3)
@@ -112,6 +111,13 @@ def mealnumber(mealnum):
             meal = 0
         else:
             meal = 1
+
+    return meal, mealdate
+
+# returns the entrees for a meal number
+def mealnumber(mealnum):
+    # determines the current meal date and meal(B, L, D)
+    meal, mealdate = date_a_meal(mealnum)
     
     # formats the date, and gets the url of that date's html
     fdate = f"{mealdate.month}-{mealdate.day}-{mealdate.year}"
@@ -150,6 +156,40 @@ def index():
     wait_time_txt = ["No wait", "Less than 5 minutes", "5-10 minutes", "More than 10 minutes"]
 
     return render_template("index.html", wait_time=wait_time_txt[average_wait_time])
+
+    average_wait_times = wait_time_calc / 3 
+    
+    nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    entreesdict = dict.fromkeys(nummeals) 
+    ratingsdict = dict.fromkeys(nummeals) 
+    commentsdict = dict.fromkeys(nummeals)
+    dates = dict.fromkeys(nummeals)
+    meal = dict.fromkeys(nummeals)
+    datesofweek = dict.fromkeys(nummeals) 
+    
+    
+    for keys in entreesdict:
+        entreesdict[keys] = mealnumber(keys)
+        dates[keys] = date_a_meal(keys)[1]
+        temp = date_a_meal(keys)[0]
+        if temp == 0:
+            meal[keys] = "Breakfast"
+        elif temp == 1:
+            meal[keys] = "Lunch"
+        else:
+            meal[keys] = "Dinner"
+        
+
+    # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
+    # also make sure that these are in order from negative to positive in the dictionary, like i did
+    # And then the dictionary of (rounded) ratings here, like so
+    for keys in ratingsdict:
+        ratingsdict[keys] = [1, 2, 3, 4, 5, 3, 2, 4]
+    # And then a dictionary of one comment from each here, make sure the order is right for all of these
+    for keys in commentsdict:
+        commentsdict[keys] = ["a", "a", "a", "A", "ewww", "a", "testing123"]
+
+    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal)
 
 
 @app.route("/form", methods=["GET", "POST"])
