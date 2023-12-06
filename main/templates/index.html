@@ -3,13 +3,13 @@
 {% block main %}
 
 <h1>
-  Yessir Buddo
+  Something might go here idk broskidoodle otherwise it will look weird
 </h1>
 <!-- carousel -->
 <!-- jinja is used to fill tables with day's food, create carousel slides for all of the days we want -->
 <!-- and to display the current/upcoming meal as active! -->
 <div class="bd-example">
-  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-inner">
       {% for eday in entreesdict %}
       {% if eday == 0 %}
@@ -17,8 +17,23 @@
       {% else %}
       <div class="carousel-item">
       {% endif %}
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">DOW</th>
+              <th class="table-collumn" scope="col">{{ dates[eday] }}</th>
+              <th class="table-collumn" scope="col">{{ meal[eday] }}</th>
+            </tr>
+          </thead>
+        </table>
         {% if entreesdict[eday] is none %}
-        <p>This meal got no entrees home dog!</p>
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">No Entrees For this Meal!</th>
+            </tr>
+          </thead>
+        </table>
         {% else %}
         <table class="table table-primary">
           <thead>
@@ -41,16 +56,6 @@
         {% endif %}
       </div>
       {% endfor %}
-      
-      <div class="carousel-item">
-        <p>
-          testing slide 123123
-        </p>
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </div>
-      </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
