@@ -47,7 +47,7 @@
             {% for entree in entreesdict[eday] %}
             <tr>
               <th class="table-row-head" scope="row">{{ entree }}</th>
-              {% if ratingsdict[eday] == -1 %}
+              {% if ratingsdict[eday][loop.index0] == -1 %}
               <td class="table-row"> No Rating Yet! </td>
               {% else %}
               <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}/5</td>
