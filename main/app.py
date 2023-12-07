@@ -6,6 +6,7 @@ import requests
 import datetime
 from datetime import datetime as dtime, time, timedelta
 from bs4 import BeautifulSoup
+import pytz
 
 import random
 from cs50 import SQL
@@ -16,9 +17,20 @@ os.environ['FLASK_DEBUG'] = '1'
 
 db = SQL("sqlite:///huds.db")
 
+est_timezone = pytz.timezone('US/Eastern')
+
+utc_now = dtime.utcnow()
+
+est_now = utc_now.astimezone(est_timezone)
+
+today = est_now.date()
+current_time = est_now.time()
+
+print(today)
+print(current_time)
 # Get current date and time
-today = datetime.date.today()
-current_time = time(dtime.now().time().hour, dtime.now().time().minute)
+# today = datetime.date.today()
+# current_time = time(dtime.now().time().hour, dtime.now().time().minute)
 
 
 # takes the html of any lunch/dinner page and returns the entrees
@@ -96,6 +108,7 @@ def date_a_meal(mealnum):
             cmealnum = 1
         elif current_time < time(19, 30, 0):
             cmealnum = 2
+
 
     # finds the meal date of mealnum and calculates the meal (B, L, D) using math
     mealdate = cmealdate + timedelta((mealnum-mealnum%3)/3)
@@ -175,7 +188,6 @@ def index():
 
     #Defining meals index  
 
-    print(date_a_meal(0))
 
     nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     entreesdict = dict.fromkeys(nummeals) 
@@ -197,12 +209,6 @@ def index():
         else:
             meal[keys] = "Dinner"
         datesofweek[keys] = getdayofweek(dates[keys])
-        
-        
-
-    # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
-    # also make sure that these are in order from negative to positive in the dictionary, like i did
-    # And then the dictionary of (rounded) ratings here, like so
     
 
     for key in ratingsdict:
