@@ -136,6 +136,18 @@ form {
     border: transparent !important;
 }
 
+.wait-time{
+    width: 400px;
+    border: 5px solid #000000f7;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: #A51C30F7;
+    color: white;
+}
+
+
 
 #dateofmeal{
     text-align: right;
