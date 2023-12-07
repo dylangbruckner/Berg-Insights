@@ -1,7 +1,7 @@
 import os
 import sys
 import datetime
-from datetime import datetime as dtime, time, timedelta
+from datetime import time, timedelta
 import requests
 import sqlite3
 import random
@@ -56,9 +56,12 @@ def login_required(f):
 
 # Insights Functions----------------------------------------------------------------------------------------------------------------
 
-# Get current date and time
+
+# Get the current date
 today = datetime.date.today()
-current_time = time(dtime.now().time().hour, dtime.now().time().minute)
+
+# Get the current time (hour and minute)
+current_time = datetime.datetime.now().time()
 
 # Ensure responses aren't cached (optional but useful for development)
 @app.after_request
@@ -545,7 +548,7 @@ def submit_order():
             "INSERT INTO orders (customer_id, order_datetime, delivery_datetime, box_count, box_contents, dropoff_location, additional_comments, venmo_username, order_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 session["user_id"],
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 delivery_datetime,
                 box_count,
                 box_contents,
