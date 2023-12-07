@@ -1,12 +1,22 @@
+.rating {
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 30px; /* Add margin between different rating sections */
+}
+
+.rating label {
+    display: inline-block; /* Align labels horizontally */
+    margin-right: 50px; /* Adjust the margin between radio buttons */
+}
+
+.showCommentBoxBtn {
+    margin-left: 10px; /* Adjust the margin for the "Leave Comment" button */
+}
+
 .rating label {
     text-align: left;
     position: relative;
-    
 } 
-
-label[for="form"] {
-    text-align: left;
-}
 
 .btn-check:checked + .btn {
     background-color: #007bff;
@@ -19,7 +29,13 @@ label[for="form"] {
 
 .commentBox {
     display: none;
-    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 10px
+}
+
+form {
+    padding-left: 40px;
+    text-align: left;
 }
 
 #hihi{

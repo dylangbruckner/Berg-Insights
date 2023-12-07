@@ -173,8 +173,7 @@ def index():
     wait_time = wait_time_txt[average_wait_time]
     
 
-    #Defining meals index
-    
+    #Defining meals index  
     nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     entreesdict = dict.fromkeys(nummeals) 
     ratingsdict = dict.fromkeys(nummeals) 
@@ -230,8 +229,6 @@ def index():
                         ratings_list.append(avg_rating)
 
             ratingsdict[key] = ratings_list
-        
-    print(ratingsdict)
 
         
     # And then a dictionary of one comment from each here, make sure the order is right for all of these
@@ -247,7 +244,7 @@ def index():
                                                 entree=entree)
                 
                 if len(comments_rows) == 0:
-                    comment = "None."
+                    comment = "No comments."
 
                     comments_list.append(comment)
 
@@ -257,12 +254,10 @@ def index():
 
                     filtered_comments = [value for value in entree_comments if value is not '']
 
-                    print(filtered_comments)
-
                     if filtered_comments:
                         comments_list.append(random.choice(filtered_comments))
                     else:
-                        comments_list.append("None.")
+                        comments_list.append("No comments.")
 
             commentsdict[key] = comments_list
 
@@ -299,7 +294,7 @@ def form():
             meal_rating = request.form.get(f"{entree}-rating")
             meal_comment = request.form.get(f"commentBox-{ entree }")
             
-            if meal_rating or meal_comment:
+            if meal_rating:
 
                 # Query database for entrees
                 entree_ids = db.execute("SELECT id FROM entrees WHERE name = (:entree);", entree=entree)
