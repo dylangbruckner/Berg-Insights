@@ -404,6 +404,9 @@ def form():
     else:
         return render_template("form.html", current_entrees=current_entrees)
 
+@app.route("/aboutUs")
+def aboutUs():
+    return render_template("about.html")
 
 # BergDash routes---------------------------------------------------------------------------------------------------------------------------------
 

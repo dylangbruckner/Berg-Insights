@@ -1,12 +1,13 @@
+
 .rating {
-    display: flex; /* Use flexbox layout */
-    align-items: center; /* Align items vertically in the center */
-    margin-bottom: 30px; /* Add margin between different rating sections */
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 30px; 
 }
 
 .rating label {
-    display: inline-block; /* Align labels horizontally */
-    margin-right: 50px; /* Adjust the margin between radio buttons */
+    display: inline-block; 
+    margin-right: 50px; 
 }
 
 .showCommentBoxBtn {
