@@ -169,6 +169,8 @@ def index():
     average_wait_time = round(wait_time_calc / len(current_wait_times))
 
     wait_time_txt = ["No wait", "Less than 5 minutes", "5-10 minutes", "More than 10 minutes"]
+
+    wait_time = wait_time_txt[average_wait_time]
     
 
     #Defining meals index
@@ -264,7 +266,7 @@ def index():
 
             commentsdict[key] = comments_list
 
-    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal, datesofweek = datesofweek)
+    return render_template("index.html", wait_time=wait_time, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal, datesofweek = datesofweek)
 
 
 @app.route("/form", methods=["GET", "POST"])
