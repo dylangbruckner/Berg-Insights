@@ -7,6 +7,7 @@ import datetime
 from datetime import datetime as dtime, time, timedelta
 from bs4 import BeautifulSoup
 
+import random
 from cs50 import SQL
 
 app = Flask(__name__)
@@ -144,7 +145,12 @@ def after_request(response):
 @app.route("/")
 def index():
 
-    current_wait_times = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT 3;", current_time=current_time)
+    # Finding average wait times based on the nearest 4 wait times
+    # Num_of_times specifies how many wait times to base average off of
+    num_of_times = 4
+
+    current_wait_times = db.execute("SELECT wait_time FROM wait_times ORDER BY ABS(wait_time - (:current_time)) LIMIT (:num_of_times);", 
+                                    current_time=current_time, num_of_times=num_of_times)
 
     wait_time_calc = 0
 
@@ -154,10 +160,9 @@ def index():
     average_wait_time = round(wait_time_calc / len(current_wait_times))
 
     wait_time_txt = ["No wait", "Less than 5 minutes", "5-10 minutes", "More than 10 minutes"]
+    
 
-    return render_template("index.html", wait_time=wait_time_txt[average_wait_time])
-
-    average_wait_times = wait_time_calc / 3 
+    #Defining meals index
     
     nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     entreesdict = dict.fromkeys(nummeals) 
@@ -183,17 +188,79 @@ def index():
     # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
     # also make sure that these are in order from negative to positive in the dictionary, like i did
     # And then the dictionary of (rounded) ratings here, like so
-    for keys in ratingsdict:
-        ratingsdict[keys] = [1, 2, 3, 4, 5, 3, 2, 4]
-    # And then a dictionary of one comment from each here, make sure the order is right for all of these
-    for keys in commentsdict:
-        commentsdict[keys] = ["a", "a", "a", "A", "ewww", "a", "testing123"]
+    
 
-    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal)
+    for key in ratingsdict:
+
+        if entreesdict[key] is not None:
+
+            ratings_list = []
+
+            for entree in entreesdict[key]:
+
+                ratings_rows = db.execute("SELECT rating FROM ratings WHERE entree_id = (SELECT id FROM entrees WHERE name = (:entree));",
+                                                entree=entree)
+
+                if len(ratings_rows) == 0:
+                    avg_rating = -1
+
+                    ratings_list.append(avg_rating)
+
+                else:
+
+                    entree_ratings = [d['rating'] for d in ratings_rows]
+
+                    if len(entree_ratings) != 0:
+
+                        avg_rating = round(sum(entree_ratings) / len(entree_ratings))
+
+                        ratings_list.append(avg_rating)
+
+            ratingsdict[key] = ratings_list
+        
+    print(ratingsdict)
+
+        
+    # And then a dictionary of one comment from each here, make sure the order is right for all of these
+    for key in commentsdict:
+
+        if entreesdict[key] is not None:
+
+            comments_list = []
+
+            for entree in entreesdict[key]:
+
+                comments_rows = db.execute("SELECT comment FROM ratings WHERE entree_id = (SELECT id FROM entrees WHERE name = (:entree)) AND comment IS NOT NULL;",
+                                                entree=entree)
+                
+                if len(comments_rows) == 0:
+                    comment = "None."
+
+                    comments_list.append(comment)
+
+                else:
+                    
+                    entree_comments = [d['comment'] for d in comments_rows]
+
+                    filtered_comments = [value for value in entree_comments if value is not '']
+
+                    print(filtered_comments)
+
+                    if filtered_comments:
+                        comments_list.append(random.choice(filtered_comments))
+                    else:
+                        comments_list.append("None.")
+
+            commentsdict[key] = comments_list
+
+    return render_template("index.html", wait_time=wait_time_txt[average_wait_time], entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal)
+
 
 
 @app.route("/form", methods=["GET", "POST"])
 def form():
+
+    current_entrees = mealnumber(0)
 
     if request.method == "POST":
 
@@ -204,44 +271,43 @@ def form():
 
         if not request.form.get("time-base"):
             errors.append("Please provide a time report.")
-
-        if not request.form.get("rating-base"):
-            errors.append("Please provide a meal rating.")
         
         if errors:
-            return render_template("form.html", errors=errors)
+            return render_template("form.html", current_entrees=current_entrees, errors=errors)
         
         specified_time = request.form.get("time-input")
         time_report = request.form.get("time-base")
-        meal_rating = request.form.get("rating-base")
-        meal_comment = request.form.get("meal-comment")
 
-        current_entrees = mealnumber(0)
+        db.execute("INSERT INTO wait_times (timestamp, wait_time) VALUES (:timestamp, :wait_time);", 
+                           timestamp=specified_time, wait_time=time_report)
+
 
         for entree in current_entrees:
+
+            meal_rating = request.form.get(f"{entree}-rating")
+            meal_comment = request.form.get(f"commentBox-{ entree }")
             
-            # Query database for username
-            rows = db.execute("SELECT * FROM entrees WHERE name = (:entree)", entree=entree)
+            if meal_rating or meal_comment:
 
-            # Ensure username does not exist
-            if len(rows) != 0:
-                db.execute("INSERT INTO entrees (name) VALUES (:entree);", entree=entree)
+                # Query database for entrees
+                entree_ids = db.execute("SELECT id FROM entrees WHERE name = (:entree);", entree=entree)
 
-                entree_id = db.execute("SELECT id FROM entrees WHERE name = (:entree);", entree=entree )
+                # Ensure entree exists
+                if len(entree_ids) == 0:
+                    db.execute("INSERT INTO entrees (name) VALUES (:entree);", entree=entree)
 
-                db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
-                           entree_id=entree_id[0]['id'], rating=meal_rating, comment=meal_comment)
+                    entree_ids = db.execute("SELECT id FROM entrees WHERE name = (:entree);", entree=entree)
 
-            else:
-                db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
-                           entree_id=rows[0]['id'], rating=meal_rating, comment=meal_comment)
+                    db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
+                            entree_id=entree_ids[0]['id'], rating=meal_rating, comment=meal_comment)
+
+                else:
+                    db.execute("INSERT INTO ratings (entree_id, rating, comment) VALUES (:entree_id, :rating, :comment);", 
+                            entree_id=entree_ids[0]['id'], rating=meal_rating, comment=meal_comment)
 
         return redirect("/")
 
     else:  
-
-        current_entrees = mealnumber(0)
-
         return render_template("form.html", current_entrees=current_entrees)
 
 
