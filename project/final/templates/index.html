@@ -75,7 +75,7 @@
   </div>
 </div>
 
-<br>
+{% if waittimesint == 1 %}
 <div class="wait-time">
   <h2>
     Wait Time:
@@ -85,6 +85,7 @@
     {{ wait_time }}
   </h4>
 </div>
+{% endif %}
 
 
 {% endblock %}

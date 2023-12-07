@@ -159,16 +159,16 @@ def breakentree(samplehtml):
 # determines the date and meal of any meal num
 def date_a_meal(mealnum):
     # determines the current meal date and meal(B, L, D)
-    if current_time > time(19, 30, 0):
+    if current_time > time(20, 0, 0):
         cmealdate = today + timedelta(1)
         cmealnum = 0
     else:
         cmealdate = today
-        if current_time < time(10, 30, 0):
+        if current_time < time(11, 0, 0):
             cmealnum = 0
-        elif current_time < time(14, 0, 0):
+        elif current_time < time(14, 30, 0):
             cmealnum = 1
-        elif current_time < time(19, 30, 0):
+        elif current_time < time(20, 0, 0):
             cmealnum = 2
 
     # finds the meal date of mealnum and calculates the meal (B, L, D) using math
@@ -325,6 +325,10 @@ def index():
 
             commentsdict[key] = comments_list
 
+    if ((current_time > time(7, 0, 0) and current_time < time(14, 30, 0)) or (current_time > time(16, 0, 0) and current_time < time(20, 0, 0))):
+        waittimesint = 1
+    else:
+        waittimesint = 0
     return render_template(
         "index.html",
         wait_time=wait_time,
@@ -334,6 +338,7 @@ def index():
         dates=dates,
         meal=meal,
         datesofweek=datesofweek,
+        waittimesint=waittimesint
     )
 
 
