@@ -130,14 +130,14 @@ def mealnumber(mealnum):
         return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
 def getdayofweek(date):
-    if date == (today - timedelta(1)):
+    if date == (today - timedelta(2)):
         return "Yesterday"
-    elif date == today:
+    elif date == (today - timedelta(1)):
         return "Today"
-    elif date == (today + timedelta(1)):
+    elif date == today:
         return "Tommorow"
     else:
-        return date.weekday()
+        return date.strftime('%A')
 
 # ----------BEGIN ROUTES--------------------------------------------------------------------------------------------------------------------
 
