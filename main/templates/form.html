@@ -41,23 +41,23 @@
     <!-- Using Radio Buttons -->
         
     {% for entree in current_entrees %}
-
+        <p>{{ entree }}</p>
         <div class="rating">
-            <p>{{ entree }}</p>
+            
 
-            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating1" autocomplete="off" value="0">
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating1" autocomplete="off" value="1">
             <label class="btn" for="{{ entree }}-rating1">1</label>
         
-            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating2" autocomplete="off" value="1">
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating2" autocomplete="off" value="2">
             <label class="btn" for="{{ entree }}-rating2">2</label>
         
-            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating3" autocomplete="off" value="2">
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating3" autocomplete="off" value="3">
             <label class="btn" for="{{ entree }}-rating3">3</label>
         
-            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating4" autocomplete="off" value="3">
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating4" autocomplete="off" value="4">
             <label class="btn" for="{{ entree }}-rating4">4</label>
 
-            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating5" autocomplete="off" value="4">
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating5" autocomplete="off" value="5">
             <label class="btn" for="{{ entree }}-rating5">5</label>
 
             <button type="button" class="showCommentBoxBtn" onclick="toggleCommentBox('{{ entree }}')">Leave Comment</button>
@@ -74,7 +74,7 @@
     {% for entree in current_entrees %}
 
         <div class="form-floating">
-            <textarea class="commentBox" placeholder="Leave a comment here" id="commentBox-{{ entree }}" name="commentBox-{{ entree }}" style="height: 100px"></textarea>
+            <textarea class="commentBox" placeholder="Comment on {{ entree }} here" id="commentBox-{{ entree }}" name="commentBox-{{ entree }}" style="height: 100px"></textarea>
             <label class="commentBox" for="commentBox-{{ entree }}"> {{ entree }}</label>
         </div>
 
