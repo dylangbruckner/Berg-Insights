@@ -128,6 +128,15 @@ def mealnumber(mealnum):
     else:
         return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
+def getdayofweek(date):
+    if date == (today - timedelta(1)):
+        return "Yesterday"
+    elif date == today:
+        return "Today"
+    elif date == (today + timedelta(1)):
+        return "Tommorow"
+    else:
+        return date.weekday()
 
 # ----------BEGIN ROUTES--------------------------------------------------------------------------------------------------------------------
 
@@ -178,6 +187,8 @@ def index():
             meal[keys] = "Lunch"
         else:
             meal[keys] = "Dinner"
+        datesofweek[keys] = dates[keys]
+        
         
 
     # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
@@ -189,7 +200,7 @@ def index():
     for keys in commentsdict:
         commentsdict[keys] = ["a", "a", "a", "A", "ewww", "a", "testing123"]
 
-    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal)
+    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal, datesofweek = datesofweek)
 
 
 @app.route("/form", methods=["GET", "POST"])
