@@ -12,7 +12,7 @@ For Customers:
     - Create Your Account: Start by registering an account with us. Click on the ‘Login/Register’ link at the bottom of the page to sign up.
     - Place Your Order: Once logged in, you can place your order by navigating to the ‘Place Your Order’ section. Fill in the details such as delivery time, food choices, and drop-off location.
     - Payment: Input your Venmo username at the time of placing the order. A deliverer will send you a Venmo request for the order amount once they claim your order.
-    - Track Your Order: After placing an order, you can track its status in the ‘Purchase History’ section. This page will also show if your order has been claimed by a deliverer.
+    - Track Your Order: After placing an order, you can track its status in the ‘Purchase History’ section. This page will show if your order has been claimed by a deliverer.
     - Receive Your Food: A deliverer will drop off your order at the specified location. Make sure to check your Venmo for the payment request.
 
 For Deliverers:

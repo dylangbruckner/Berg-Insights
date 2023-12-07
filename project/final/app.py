@@ -17,7 +17,7 @@ import pytz
 app = Flask(__name__)
 
 # Configure secret key
-app.secret_key = "your_secret_key"  # Replace with your actual secret key
+app.secret_key = "123456"  
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
