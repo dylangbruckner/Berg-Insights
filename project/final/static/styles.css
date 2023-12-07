@@ -138,12 +138,13 @@ form {
 
 .wait-time{
     width: 400px;
-    border: 10px solid #A51C30F7;
-    padding: 50px;
+    border: 5px solid #000000f7;
+    padding: 0px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    background-color: #A51C3044
+    background-color: #A51C30F7;
+    color: white;
 }
 
 
