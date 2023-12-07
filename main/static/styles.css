@@ -71,6 +71,9 @@ form {
     font-weight: 550;
 }
 
+#table-title{
+    font-size: 40px;
+}
 
 .navbar{
     background-color: #A51C30 !important;

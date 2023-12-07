@@ -2,9 +2,13 @@
 
 {% block main %}
 
-<h1>
-  This is my fanpage to Daniel
-</h1>
+<table class="table table-primary">
+  <thead>
+    <tr>
+      <th class="table-collumn"  id="table-title" scope="col"> Entree Map </th>
+    </tr>
+  </thead>
+</table>
 <!-- carousel -->
 <!-- jinja is used to fill tables with day's food, create carousel slides for all of the days we want -->
 <!-- and to display the current/upcoming meal as active! -->
@@ -47,7 +51,7 @@
             {% for entree in entreesdict[eday] %}
             <tr>
               <th class="table-row-head" scope="row">{{ entree }}</th>
-              {% if ratingsdict[eday] == -1 %}
+              {% if ratingsdict[eday][loop.index0] == -1 %}
               <td class="table-row"> No Rating Yet! </td>
               {% else %}
               <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}/5</td>
