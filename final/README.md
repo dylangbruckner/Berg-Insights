@@ -1,5 +1,0 @@
-Hello, and welcome to BergInsights.
-
-BergInsights is an all-in-one Annenberg Dining web application for Harvard students. On its homepage, our site displays the names, ratings, and comments for each entree of the current or next meal based on the date and time of day. Users can also preview upcoming meals or review past meals by moving the homepage carousel to the left or right with the arrow buttons. Our homepage also displays the projected dining hall line wait time based on the time of day. This way, users will be able to decide if and when they want to eat their meals.
-
-Our project is coded in the form of a flask web application. You can run the project by opening the directory called "final" in the "project" folder and executing flask run in terminal. To run this project in our own repository, we had to execute "pip install flask", "pip install flask_session", and "pip install cs50".
