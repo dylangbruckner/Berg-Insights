@@ -1,7 +1,7 @@
 import os
 import sys
 import datetime
-from datetime import time, timedelta
+from datetime import datetime as dtime, time, timedelta
 import requests
 import sqlite3
 import random
@@ -57,6 +57,10 @@ def login_required(f):
 
 # Insights Functions----------------------------------------------------------------------------------------------------------------
 
+dashtoday = datetime.date.today()
+
+# Get the current time (hour and minute)
+dashcurrent_time = datetime.datetime.now().time()
 
 # Get the current date
 today = datetime.date.today()
