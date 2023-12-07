@@ -192,7 +192,7 @@ def index():
             meal[keys] = "Lunch"
         else:
             meal[keys] = "Dinner"
-        datesofweek[keys] = dates[keys]
+        datesofweek[keys] = getdayofweek(dates[keys])
         
         
 
