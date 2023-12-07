@@ -3,7 +3,7 @@
 {% block main %}
 
 <h1>
-  Something should go here
+  This is my fanpage to Daniel
 </h1>
 <!-- carousel -->
 <!-- jinja is used to fill tables with day's food, create carousel slides for all of the days we want -->
@@ -20,7 +20,7 @@
         <table class="table table-primary">
           <thead>
             <tr>
-              <th class="table-collumn" scope="col">DOW</th>
+              <th class="table-collumn" scope="col">{{ datesofweek[eday] }}</th>
               <th class="table-collumn" scope="col">{{ dates[eday] }}</th>
               <th class="table-collumn" scope="col">{{ meal[eday] }}</th>
             </tr>
@@ -47,7 +47,11 @@
             {% for entree in entreesdict[eday] %}
             <tr>
               <th class="table-row-head" scope="row">{{ entree }}</th>
+              {% if ratingsdict[eday] = -1 %}
+              <td class="table-row"> No Rating Yet! </td>
+              {% else %}
               <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}/5</td>
+              {% endif %}
               <td class="table-row">{{ commentsdict[eday][loop.index0] }}</td>
             </tr>
             {% endfor %}
