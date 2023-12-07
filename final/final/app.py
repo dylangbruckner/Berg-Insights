@@ -11,6 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
 from functools import wraps
 from cs50 import SQL
+import pytz
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -62,6 +63,15 @@ today = datetime.date.today()
 
 # Get the current time (hour and minute)
 current_time = datetime.datetime.now().time()
+# Get current date and time
+est_timezone = pytz.timezone('US/Eastern')
+
+utc_now = dtime.utcnow()
+
+est_now = utc_now.astimezone(est_timezone)
+
+today = est_now.date()
+current_time = est_now.time()
 
 # Ensure responses aren't cached (optional but useful for development)
 @app.after_request
@@ -192,11 +202,11 @@ def mealnumber(mealnum):
 
 
 def getdayofweek(date):
-    if date == (today - timedelta(2)):
+    if date == (today - timedelta(1)):
         return "Yesterday"
-    elif date == (today - timedelta(1)):
-        return "Today"
     elif date == today:
+        return "Today"
+    elif date == (today + timedelta(1)):
         return "Tommorow"
     else:
         return date.strftime("%A")
@@ -245,11 +255,11 @@ def index():
         dates[keys] = date_a_meal(keys)[1]
         temp = date_a_meal(keys)[0]
         if temp == 0:
-            meal[keys] = "Breakfast"
+            meal[keys] = "breakfast"
         elif temp == 1:
-            meal[keys] = "Lunch"
+            meal[keys] = "lunch"
         else:
-            meal[keys] = "Dinner"
+            meal[keys] = "dinner"
         datesofweek[keys] = getdayofweek(dates[keys])
 
     # Daniel put a dictionary here with all of the days as the key, ie _1, 0, 1, etc. for the days of the carousel with entrees, like seen above
