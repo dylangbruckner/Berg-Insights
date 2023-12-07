@@ -1,0 +1,37 @@
+<!-- templates/faq.html -->
+{% extends "base.html" %}
+
+{% block title %}About BergDash{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>About</h2>
+        <div>
+            <p><strong>Welcome to BergDash!</strong></p>
+            <p>BergDash is a food delivery platform for the fine food of Harvard's Annenberg Hall, letting first-year students get food delivered straight to their dorm, or make money delivering. Here’s a quick guide on how to use our site:</p>
+            <h4>For Customers:</h4>
+            <ol>
+                <li><strong>Create Your Account</strong>: Start by registering an account with us. Click on the ‘Login/Register’ link at the bottom of the page to sign up.</li>
+                <li><strong>Place Your Order</strong>: Once logged in, you can place your order by navigating to the ‘Place Your Order’ section. Fill in the details such as delivery time, food choices, and drop-off location.</li>
+                <li><strong>Payment</strong>: Input your Venmo username at the time of placing the order. A deliverer will send you a Venmo request for the order amount once they claim your order.</li>
+                <li><strong>Track Your Order</strong>: After placing an order, you can track its status in the ‘Purchase History’ section. This page will also show if your order has been claimed by a deliverer.</li>
+                <li><strong>Receive Your Food</strong>: A deliverer will drop off your order at the specified location. Make sure to check your Venmo for the payment request.</li>
+            </ol>
+            <h4>For Deliverers:</h4>
+            <ol>
+                <li><strong>Register and Log In</strong>: If you'd like to deliver orders, start by creating an account and logging in. If you haven't already, download Venmo and register.</li>
+                <li><strong>Claim Orders</strong>: Navigate to the ‘Deliverer Dashboard’. Here, you can view available orders and claim the ones you wish to deliver.</li>
+                <li><strong>Contact and Delivery</strong>: Once you claim an order, you’ll see the customer’s Venmo username and order details. Contact the customer via Venmo if needed, and remember to request the order amount.</li>
+                <li><strong>Timely Delivery</strong>: Ensure to deliver the order within the specified time. A delay beyond 5 minutes might entitle the customer to a refund.</li>
+            </ol>
+            <h4>General Guidelines:</h4>
+            <ul>
+                <li><strong>Accountability</strong>: If a deliverer fails to go through with an order, please reach out to us immediately to get the problem fixed.</li>
+                <li><strong>Communication</strong>: For any issues or delays, communicate promptly through the designated channels.</li>
+                <li><strong>Feedback</strong>: Your feedback is valuable to us. Please reach out through the ‘Contact Us’ section for any suggestions or concerns.</li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="text-center mt-4 small">BergDash site made by Ari Kaufman.</p>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}BergDash Homepage{% endblock %}
+
+{% block content %}
+    <div class="background-image">
+        <h1 class="centered">BergDash</h1>
+
+        <!-- Central Get Started Button -->
+        <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+            {% if session.user_id %}
+                <a href="{{ url_for('post_registration') }}" class="btn btn-primary btn-lg">Let's Get Going!</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Let's Get Started!</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+<style>
+    body {
+        background-image: url('{{ url_for('static', filename='berg.jpeg') }}');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>

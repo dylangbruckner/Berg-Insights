@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+
+{% block main %}
+
+<script>
+     function toggleCommentBox(ratingTopic) {
+            var commentBox = document.getElementById("commentBox-" + ratingTopic);
+            commentBox.style.display = (commentBox.style.display === "none" || commentBox.style.display === "") ? "block" : "none";
+        }
+</script>
+
+<form action="/form" method="post">
+
+    <h1>
+        <label for="form">How long did you wait?</label>
+    </h1>
+
+    <div class="time">
+        <input type="time" name="time-input" id="time-input">
+
+        <input type="radio" class="btn-check" name="time-base" id="time1" autocomplete="off" value="0">
+        <label class="btn" for="time1">No wait</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time2" autocomplete="off" value="1">
+        <label class="btn" for="time2">Less than 5 minutes</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time3" autocomplete="off" value="2">
+        <label class="btn" for="time3">5-10 minutes</label>
+
+        <input type="radio" class="btn-check" name="time-base" id="time4" autocomplete="off" value="3">
+        <label class="btn" for="time4">More than 10 minutes</label>
+    </div>
+
+    <br>
+
+    <h1>
+        <label for="form">Rate the meal!</label>
+    </h1>
+
+    <!-- Using Radio Buttons -->
+
+    {% for entree in current_entrees %}
+        <p>{{ entree }}</p>
+        <div class="rating">
+
+
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating1" autocomplete="off" value="1">
+            <label class="btn" for="{{ entree }}-rating1">1</label>
+
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating2" autocomplete="off" value="2">
+            <label class="btn" for="{{ entree }}-rating2">2</label>
+
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating3" autocomplete="off" value="3">
+            <label class="btn" for="{{ entree }}-rating3">3</label>
+
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating4" autocomplete="off" value="4">
+            <label class="btn" for="{{ entree }}-rating4">4</label>
+
+            <input type="radio" class="btn-check" name="{{ entree }}-rating" id="{{ entree }}-rating5" autocomplete="off" value="5">
+            <label class="btn" for="{{ entree }}-rating5">5</label>
+
+            <button type="button" class="showCommentBoxBtn" onclick="toggleCommentBox('{{ entree }}')">Leave Comment</button>
+        </div>
+
+    {% endfor %}
+
+    <br>
+
+    <h1>
+        <label for="form">Any comments?</label>
+    </h1>
+
+    {% for entree in current_entrees %}
+
+        <div class="form-floating">
+            <textarea class="commentBox" placeholder="Comment on {{ entree }} here" id="commentBox-{{ entree }}" name="commentBox-{{ entree }}" style="height: 100px"></textarea>
+            <label class="commentBox" for="commentBox-{{ entree }}"> {{ entree }}</label>
+        </div>
+
+    {% endfor %}
+
+    <br>
+
+    <input type="submit" value="Submit">
+
+    {% for error in errors %}
+
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+
+    {% endfor %}
+
+</form>
+
+{% endblock %}

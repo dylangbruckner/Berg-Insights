@@ -1,0 +1,31 @@
+<!-- templates/deliverer.html -->
+{% extends "base.html" %}
+
+{% block title %}Deliverer Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Available Orders</h2>
+        {% if orders %}
+            <div id="orders-container">
+                {% for order in orders %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Order ID: {{ order.id }}</h5>
+                            <p class="card-text">Delivery Time: {{ order.delivery_datetime }}</p>
+                            <p class="card-text">Box Count: {{ order.box_count }}</p>
+                            <p class="card-text">Contents: {{ order.box_contents }}</p>
+                            <p class="card-text">Dropoff Location: {{ order.dropoff_location }}</p>
+                            <p class="card-text">Comments: {{ order.additional_comments }}</p>
+                            <form action="{{ url_for('claim_order', order_id=order.id) }}" method="post">
+                                <button type="submit" class="btn btn-primary">Claim Order</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No available orders at the moment.</p>
+        {% endif %}
+    </div>
+{% endblock %}

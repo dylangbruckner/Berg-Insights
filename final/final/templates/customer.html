@@ -1,0 +1,23 @@
+<!-- templates/customer_dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Customer Dashboard</h2>
+
+        <div class="d-flex flex-column align-items-center">
+        <!-- Start Order Button -->
+            <a href="{{ url_for('order') }}" class="btn btn-primary btn-lg mb-3">Start an Order</a>
+
+        <!-- Purchase History Button -->
+            <a href="{{ url_for('purchase_history') }}" class="btn btn-secondary btn-lg mb-3">View Purchase History</a>
+
+            <a href="https://www.foodpro.huds.harvard.edu/foodpro/menu_items.asp?type=30&meal=1" class="btn btn-success btn-lg mb-3" target="_blank">View Menu</a>
+
+        <!-- Logout Button -->
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-lg">Logout</a>
+        </div>
+    </div>
+{% endblock %}

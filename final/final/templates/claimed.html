@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Order Claimed{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Congratulations on Claiming an Order!</h2>
+        {% if order %}
+            <div class="order-details">
+                <p><strong>Delivery Time:</strong> {{ order.delivery_datetime }}</p>
+                <p><strong>Box Count:</strong> {{ order.box_count }}</p>
+                <p><strong>Contents:</strong> {{ order.box_contents }}</p>
+                <p><strong>Dropoff Location:</strong> {{ order.dropoff_location }}</p>
+                <p><strong>Comments:</strong> {{ order.additional_comments }}</p>
+                <p><strong>Venmo Username:</strong> {{ order.venmo_username }}</p>
+                <p><strong>Total Price:</strong> ${{ "%.2f"|format(order.order_price) }}</p>
+            </div>
+            <div class="alert alert-info mt-4">
+                <p>Your next step is to request the order price of ${{ "%.2f"|format(order.order_price) }} from the customer via Venmo. The customer's Venmo username is <strong>{{ order.venmo_username }}</strong>. Please ensure that you send the request promptly to confirm the transaction.</p>
+            </div>
+            <div class="alert alert-warning mt-4">
+                <p>Please remember that you are responsible for delivering this order by the specified delivery time. If you are more than 5 minutes late, the customer is eligible for a full refund. Timely delivery is crucial for maintaining customer satisfaction and trust.</p>
+            </div>
+        {% else %}
+            <p>No order details available.</p>
+        {% endif %}
+        <a href="{{ url_for('deliverer') }}" class="btn btn-primary">Go to Dashboard</a>
+    </div>
+{% endblock %}

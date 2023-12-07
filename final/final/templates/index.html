@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<table class="table table-primary">
+  <thead>
+    <tr>
+      <th class="table-collumn"  id="table-title" scope="col"> Entree Map </th>
+    </tr>
+  </thead>
+</table>
+<!-- carousel -->
+<!-- jinja is used to fill tables with day's food, create carousel slides for all of the days we want -->
+<!-- and to display the current/upcoming meal as active! -->
+<div class="bd-example">
+  <div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-inner">
+      {% for eday in entreesdict %}
+      {% if eday == 0 %}
+      <div class="carousel-item active">
+      {% else %}
+      <div class="carousel-item">
+      {% endif %}
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">{{ datesofweek[eday] }}</th>
+              <th class="table-collumn" scope="col">{{ dates[eday] }}</th>
+              <th class="table-collumn" scope="col">{{ meal[eday] }}</th>
+            </tr>
+          </thead>
+        </table>
+        {% if entreesdict[eday] is none %}
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">No Entrees For this Meal!</th>
+            </tr>
+          </thead>
+        </table>
+        {% else %}
+        <table class="table table-primary">
+          <thead>
+            <tr>
+              <th class="table-collumn" scope="col">Entree</th>
+              <th class="table-collumn" scope="col">Rating</th>
+              <th class="table-collumn" scope="col">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entree in entreesdict[eday] %}
+            <tr>
+              <th class="table-row-head" scope="row">{{ entree }}</th>
+              {% if ratingsdict[eday][loop.index0] == -1 %}
+              <td class="table-row"> No Rating Yet! </td>
+              {% else %}
+              <td class="table-row"> {{ ratingsdict[eday][loop.index0] }}/5</td>
+              {% endif %}
+              <td class="table-row">{{ commentsdict[eday][loop.index0] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+<br>
+
+<h1>
+  Projected Wait Time
+</h1>
+
+<h2>
+  {{ wait_time }}
+</h2>
+
+{% endblock %}

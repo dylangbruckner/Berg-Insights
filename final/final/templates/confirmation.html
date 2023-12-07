@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Order Confirmation</h2>
+        <p>Thank you for placing your order. A Venmo request will be sent to you if a deliverer claims your order. Please check your Venmo account frequently and use Venmo's messaging feature to communicate with the deliverer.</p>
+
+        <div class="order-details">
+            <h4>Your Order:</h4>
+            <p><strong>Delivery Time:</strong> {{ delivery_time }}</p>
+            <p><strong>Box Contents:</strong> {{ box_contents }}</p>
+            <p><strong>Dropoff Location:</strong> {{ dropoff_location }}</p>
+            <p><strong>Additional Comments:</strong> {{ additional_comments }}</p>
+            <p><strong>Total Price:</strong> ${{ '%.2f' | format(order_price) }}</p>
+        </div>
+    </div>
+{% endblock %}
