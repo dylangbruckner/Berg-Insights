@@ -130,12 +130,12 @@ def mealnumber(mealnum):
         return lundinentree(BeautifulSoup(requests.get(MYHTML).content, "html.parser"))
 
 def getdayofweek(date):
-    if date == (today - timedelta(2)):
+    if date == (today - timedelta(1)):
         return "Yesterday"
-    elif date == (today - timedelta(1)):
-        return "Today"
     elif date == today:
-        return "Tommorow"
+        return "Today"
+    elif date == (today + timedelta(1)):
+        return "Tomorrow"
     else:
         return date.strftime('%A')
 
@@ -175,6 +175,7 @@ def index():
 
     #Defining meals index
     
+    print(date_a_meal(0))
     nummeals = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     entreesdict = dict.fromkeys(nummeals) 
     ratingsdict = dict.fromkeys(nummeals) 
@@ -230,8 +231,6 @@ def index():
                         ratings_list.append(avg_rating)
 
             ratingsdict[key] = ratings_list
-        
-    print(ratingsdict)
 
         
     # And then a dictionary of one comment from each here, make sure the order is right for all of these
