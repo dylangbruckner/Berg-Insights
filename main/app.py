@@ -264,7 +264,7 @@ def index():
 
             commentsdict[key] = comments_list
 
-    return render_template("index.html", average_wait_times=average_wait_times, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal, datesofweek = datesofweek)
+    return render_template("index.html", average_wait_time=average_wait_time, entreesdict = entreesdict, ratingsdict = ratingsdict, commentsdict = commentsdict, dates = dates, meal = meal, datesofweek = datesofweek)
 
 
 @app.route("/form", methods=["GET", "POST"])
